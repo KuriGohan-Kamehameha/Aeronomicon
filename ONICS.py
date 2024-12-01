@@ -15,6 +15,8 @@ import logging
 import time
 import os
 import argparse
+import multiprocessing
+
 
 # Default log file path
 log_file_path = "/home/pi/onics.log"
@@ -113,19 +115,19 @@ if __name__ == "__main__":
         t265_enabled = not (args.disable_t265 or args.sik_only)
         d4xx_enabled = not (args.disable_d4xx or args.sik_only)
 
-        log_thread = threading.Thread(target=publish_logs, daemon=True)
-        log_thread.start()
+        log_processing = multiprocessing.Process(target=publish_logs, daemon=True)
+        log_processing.start()
 
         print("ONICS - Optical Navigation and Interference Control System is initializing...")
 
-        threads = [threading.Thread(target=mavproxy_create_connection)]
+        processes = [multiprocessing.Process(target=mavproxy_create_connection)]
         if t265_enabled:
-            threads.append(threading.Thread(target=run_t265))
+            processes.append(multiprocessing.Process(target=run_t265))
         if d4xx_enabled:
-            threads.append(threading.Thread(target=run_d4xx))
+            processes.append(multiprocessing.Process(target=run_d4xx))
 
-        for thread in threads:
-            thread.start()
+        for process in processes:
+            process.run() 
 
-        for thread in threads:
-            thread.join()  # Wait for threads to complete or terminate
+        for process in processes:
+            process.join()  # Wait for threads to complete or terminate
