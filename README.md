@@ -1,3 +1,13 @@
+> ## ⚠️ Archived — not the canonical copy
+>
+> The canonical repository is **[fitoori/Aeronomicon](https://github.com/fitoori/Aeronomicon)**.
+>
+> This copy is read-only. Its full history is preserved in the canonical repo on the `archive/kuri-main` branch.
+> The two copies had **unrelated git histories** and could not be merged, so they were consolidated by
+> selecting the copy with the substantive work and archiving this one (2026-07-23).
+
+---
+
 List of files:
 - ONICS2.py - re-rework of Thien94's rs_to_mavlink.py script with multicore support.
 - ONICS.py - complete rework of Thien94's rs_to_mavlink.py script. Includes logging and thread management options.
